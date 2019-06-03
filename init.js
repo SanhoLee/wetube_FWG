@@ -1,4 +1,4 @@
-// #2.0 MVC Patteran Part 1
+// #2.1 MVC Patteran Part 2, up to setting object for URL
 import app from "./app";
 // importing app object from app.js file
 
