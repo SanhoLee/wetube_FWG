@@ -1,4 +1,4 @@
-// #1.0 Express Routing Testing and Setting
+// #2.0 MVC Patteran Part 1
 import app from "./app";
 // importing app object from app.js file
 
