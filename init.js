@@ -1,4 +1,4 @@
-// #2.2 MVC Patteran Part 3
+// #2.3 How to add HTML element by PUG
 import app from "./app";
 // importing app object from app.js file
 
