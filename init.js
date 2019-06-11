@@ -1,4 +1,4 @@
-// #2.3 How to add HTML element by PUG
+// #2.17 Template Variables in Pug
 import app from "./app";
 // importing app object from app.js file
 
