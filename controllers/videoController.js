@@ -1,4 +1,3 @@
-// #2.18 Search Controller
 
 export const home = (req, res) => res.render("home", { pageTitle: "Home" });
 
