@@ -1,4 +1,9 @@
 extends layouts/main.pug
 
 block potato
-    p Edit Video
+    .form-container
+        form(action=`/videos${routes.editVideo}`, method='post')
+            input(type="text", name='title', placeholder='Title')
+            input(type="text", name='description', placeholder='Description')
+            input(type="submit", value='Edit Video')
+        a.form-container__link.form-container__link--delete(href=`/videos${routes.deleteVideo}`) Delete Video

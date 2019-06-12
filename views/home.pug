@@ -2,4 +2,6 @@ extends layouts/main.pug
 
 block potato
     .video
-        h1 Video
+        each video in videos
+            h1=`${video.title} is made by ${video.creator.name}`
+            p=video.description
