@@ -1,6 +1,31 @@
-export const join = (req, res) => res.render("join", { pageTitle: "Join" });
+import routes from "../routes"
+
+export const getJoin = (req, res) => {
+  res.render("join", { pageTitle: "Join" });
+};
+
+export const postJoin = (req, res) => {
+  const {
+    body: { name, email, password, password2 }
+  } = req;
+
+  if (password !== password2) {
+    //status Code Definition(http page) / 400 : Bad Request
+    res.status(400);
+    res.render("join", { pageTitle: "Join" });
+  } else {
+    // To do : Register User
+    // To do : Log user In
+    res.redirect(routes.home);
+  }
+};
+
 export const login = (req, res) => res.render("login", { pageTitle: "Login" });
-export const logout = (req, res) => res.render("logout", { pageTitle: "Logout" });
-export const userDetail = (req, res) => res.render("userDetail", { pageTitle: "User Detail" });
-export const editProfile = (req, res) => res.render("editProfile", { pageTitle: "Edit Profile" });
-export const changePassword = (req, res) => res.render("changePassword", { pageTitle: "Change Password" });
+export const logout = (req, res) =>
+  res.render("logout", { pageTitle: "Logout" });
+export const userDetail = (req, res) =>
+  res.render("userDetail", { pageTitle: "User Detail" });
+export const editProfile = (req, res) =>
+  res.render("editProfile", { pageTitle: "Edit Profile" });
+export const changePassword = (req, res) =>
+  res.render("changePassword", { pageTitle: "Change Password" });
