@@ -1,7 +1,11 @@
 extends layouts/main.pug
+include mixins/videoBlock
 
 block potato
     .video
         each video in videos
-            h1=`${video.title} is made by ${video.creator.name}`
-            p=video.description
+            +videoBlock({
+                title:video.title,
+                views:video.views,
+                videoFile:video.videoFile
+            })
