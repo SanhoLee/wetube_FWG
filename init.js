@@ -1,7 +1,7 @@
 import "./db";
 import dotenv from 'dotenv';
 dotenv.config();
-
+import './models/Video'
 
 import app from "./app";
 // importing app object from app.js file
