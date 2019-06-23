@@ -88,3 +88,6 @@ typings/
 .dynamodb/
 
 package-lock.json
+
+#dotenv, ignore environment variables
+.env
