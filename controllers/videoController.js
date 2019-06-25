@@ -1,7 +1,16 @@
-import routes from "../routes"
+import routes from "../routes";
+import Video from "../models/Video";
 
-export const home = (req, res) => {
-  res.render("home", { pageTitle: "Home", videos });
+
+// await 함수는 실행되는 대상이 끝날때까지 기다려 준다. 단. async함수 내에서 실행되어야 한다.
+export const home = async (req, res) => {
+  try {
+    const videos = await Video.find({});
+    res.render("home", { pageTitle: "Home", videos });
+  } catch (error) {
+    console.log(error);
+    res.render("home", { pageTitle: "Home", videos: [] });
+  }
 };
 
 export const search = (req, res) => {
@@ -15,7 +24,7 @@ export const search = (req, res) => {
   const {
     query: { term: searchingBy }
   } = req;
-  res.render("search", { pageTitle: "Search", searchingBy ,videos});
+  res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 
 export const getUpload = (req, res) =>
@@ -23,11 +32,10 @@ export const getUpload = (req, res) =>
 
 export const postUpload = (req, res) => {
   const {
-    body : { file, title, description }
+    body: { file, title, description }
   } = req;
   // To do : Upload and save Video
-  res.redirect(routes.videoDetail(1239123))
-
+  res.redirect(routes.videoDetail(1239123));
 };
 
 export const videoDetail = (req, res) =>
