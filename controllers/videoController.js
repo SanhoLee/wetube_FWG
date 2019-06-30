@@ -1,7 +1,6 @@
 import routes from "../routes";
 import Video from "../models/Video";
 
-
 // await 함수는 실행되는 대상이 끝날때까지 기다려 준다. 단. async함수 내에서 실행되어야 한다.
 export const home = async (req, res) => {
   try {
@@ -30,12 +29,18 @@ export const search = (req, res) => {
 export const getUpload = (req, res) =>
   res.render("upload", { pageTitle: "Upload" });
 
-export const postUpload = (req, res) => {
+export const postUpload = async (req, res) => {
   const {
-    body: { file, title, description }
+    body: { title, description },
+    file: { path }
   } = req;
-  // To do : Upload and save Video
-  res.redirect(routes.videoDetail(1239123));
+  const newVideo = await Video.create({
+    // 위에 있는 path를 가지고 와서 아래 path에 할당해줌
+    fileUrl: path,
+    title,
+    description
+  });
+  res.redirect(routes.videoDetail(newVideo.id))
 };
 
 export const videoDetail = (req, res) =>
