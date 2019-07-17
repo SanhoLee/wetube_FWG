@@ -49,7 +49,7 @@ export const videoDetail = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    res.render("videoDetail", { pageTitle: "Video Detail", video });
+    res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
     res.redirect(routes.home);
   }
@@ -79,12 +79,20 @@ export const postEditVideo = async (req, res) => {
     // title:title, description:description 의 표현이 아래와 같이 되었음.
     // id는 그대로 이고, title, description을 수정하면 다시 redirect 되는 구조?
     // findOneAndUpdate를 쓰면 변경하고자 하는 내용을? 먼저 저장을 해야된다고 함.
-    await Video.findOneAndUpdate({ id }, { title, description });
+    await Video.findOneAndUpdate({ _id: id }, { title, description });
     res.redirect(routes.videoDetail(id));
   } catch (error) {
     res.redirect(routes.home);
   }
 };
 
-export const deleteVideo = (req, res) =>
-  res.render("deleteVideo", { pageTitle: "Delete Video" });
+export const deleteVideo = async (req, res) => {
+  const {
+    params: { id }
+  } = req;
+  try {
+    console.log(id);
+    await Video.findOneAndRemove({_id:id});
+  } catch (error) {}
+  res.redirect(routes.home);
+};
