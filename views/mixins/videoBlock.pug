@@ -1,3 +1,6 @@
+//- mixin은 pug 함수의 일종이다. 블럭으로 가져다가 html에 붙여넣을 수 있다.
+//- mixin은 기본적으로 인자가 필요하며, 그것을 video라고 하고 객체 값은 빈 값으로 주었음 {} 
+//- videoBlock 객체에서 인식하는 쿼리 텀 : id, videoFile, title, views
 mixin videoBlock(video = {})
     .videoBlock
         a(href=routes.videoDetail(video.id))

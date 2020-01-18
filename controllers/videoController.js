@@ -2,6 +2,8 @@ import routes from "../routes";
 import Video from "../models/Video";
 
 // await 함수는 실행되는 대상이 끝날때까지 기다려 준다. 단. async함수 내에서 실행되어야 한다.
+// Javascript는 기본적으로 하나의 명령어가 끝날때까지 기다려주지 않기 때문에 await로 비디오를 찾을 때까지 실행시킴.
+// await Video.find({}); 는 Video에 있는 모든 비디오를 가져오게 된다.
 export const home = async (req, res) => {
   try {
     const videos = await Video.find({});
@@ -11,6 +13,8 @@ export const home = async (req, res) => {
     res.render("home", { pageTitle: "Home", videos: [] });
   }
 };
+// error가 발생하면, videos는 데이터가 없기 때문에 빈 어레이 []로 처리해줌.
+
 
 export const search = (req, res) => {
   // #1 new Way - We use this way on this code!
@@ -48,7 +52,7 @@ export const videoDetail = async (req, res) => {
     params: { id }
   } = req;
   try {
-    const video = await Video.findById(id);
+    const video = await Video.findById(id); 
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
     res.redirect(routes.home);
@@ -77,8 +81,8 @@ export const postEditVideo = async (req, res) => {
   } = req;
   try {
     // title:title, description:description 의 표현이 아래와 같이 되었음.
-    // id는 그대로 이고, title, description을 수정하면 다시 redirect 되는 구조?
-    // findOneAndUpdate를 쓰면 변경하고자 하는 내용을? 먼저 저장을 해야된다고 함.
+    // id로 비디오를 찾은 다음, 업데이트 한다.
+    // mongoose에서 파일을 id로 찾으려면, key ==> _id 이므로, 이부분은 주의할것. 여기서는 id가 condition이 되서 query 해준다.
     await Video.findOneAndUpdate({ _id: id }, { title, description });
     res.redirect(routes.videoDetail(id));
   } catch (error) {

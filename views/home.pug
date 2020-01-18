@@ -1,6 +1,10 @@
 extends layouts/main.pug
 include mixins/videoBlock
 
+//- extends는 pug로 만든 내용을 덮어쓸수도 있고, 그대로 포맷으로 사용할 수 있다. 
+//- include >> mixin 에 작성한 내용을 블럭형태로 가져와서? 계속 반복되는 부분을 복사-붙여넣기 하지 않고 재 활용 하는 방법
+//- mixin 파일을 정의할 때는 +기호로 전달한다.
+
 block potato
     .video
         each item in videos
