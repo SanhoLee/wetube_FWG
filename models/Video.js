@@ -18,17 +18,16 @@ const VideoSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  comment: [
+  comments: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref:'Comments'
+      ref: "Comments"
     }
   ]
 });
 // comment의 경우, Comment에 정의해준 모델을 참조모델로해서, 하나의 비디오에 달리는 Comment 객체 id를 어래이 형태로 가지게 되고, 코멘트 아이디만 다 가져와서 관리하게 된다.
 // 반대로 적용도 가능하다. 즉, 한 코멘트에 대해서, 참조하게 될 비디오 아이디를 불러와서 연결 지을수도 있다.
 // 전자가 관리하기도 수월하고, 이해도 부분에서도 용이하게 때문에 비디오 모델에 코멘트 아이디를 가져와서 관리 하는게 좋은 것 같다.
-
 
 const model = mongoose.model("Video", VideoSchema);
 export default model;
