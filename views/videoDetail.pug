@@ -2,7 +2,7 @@ extends layouts/main.pug
 
 block potato
     .video__player
-        video(src=`/${video.fileUrl}`)
+        video(src=`/${video.fileUrnpl}`)
     .video__info
         a(href=routes.editVideo(video.id)) Edit Video
         h4.video__title=video.title
