@@ -17,6 +17,7 @@ app.set("view engine", "pug");
 // 컨트롤러나, 어떤 view로 렌더링 작업도 하지않고, file만 찾으러 갈거임.
 // static(directory name)이므로, 여기서는 uploads라는 디렉토리의 파일을 찾으러 감.파일의 url?
 app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("static"));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

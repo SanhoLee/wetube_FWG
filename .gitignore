@@ -89,6 +89,8 @@ typings/
 
 package-lock.json
 uploads
+static
+
 
 #dotenv, ignore environment variables
 .env
