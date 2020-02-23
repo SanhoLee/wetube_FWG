@@ -17,7 +17,7 @@ export const localsMiddleware = (req, res, next) => {
     // isAutenticated에 의해서, 홈 화면이 바뀐다.
     // user라는 변수를 만들어 주고, 안에 객체 형태로 각 데이터를 정의해준거임.
     // header.pug에서 로그인 정보에 의해서 내비게이션을 다르게 보여주는데 사용됨.
-    isAuthenticated: false,
+    isAuthenticated: true,
     id: 1
   };
   next();

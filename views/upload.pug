@@ -3,8 +3,9 @@ extends layouts/main.pug
 block potato
     .form-container
         form(action=`/videos${routes.upload}`, method='post', enctype="multipart/form-data")
-            label(for="file") Video File
-            input(type="file", id="file",name="videoFile",required=true, accept="video/*")
+            div.fileUpload
+                label(for="file") Video File
+                input(type="file", id="file",name="videoFile",required=true, accept="video/*")
             //- accept="video/*"로 비디오 포맷만 활성화 시킴
             input(type="text", name='title', placeholder='Title',required=true)
             input(type="text", name='description', placeholder='Description',required=true)

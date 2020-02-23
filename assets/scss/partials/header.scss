@@ -45,6 +45,7 @@
         border-radius: 5px;
         font-size: 14px;
         font-weight: 600;
+        max-width: none;
         color: $black;
         &::placeholder {
           font-weight: 300;

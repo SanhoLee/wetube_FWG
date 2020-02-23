@@ -1,0 +1,18 @@
+.home-videos {
+  display: grid;
+  //   repeat에 의해서, 정해준 한 grid 사이즈를, 반복해서 표현해줌.
+  grid-template-columns: repeat(6, minmax(150px, 1fr));
+  grid-gap: 30px;
+  .videoBlock:first-child,
+  .videoBlock:nth-child(2) {
+    //     // grid-column은 컬럼 기준으로 위치를 지정해준다.
+    //     // span 옵션을 사용하게 되면 지정한 integer 수 만큼의 컬럼을 차지하게 됨.
+    grid-column: span 3;
+  }
+  //   3,4,5번째 child에 대해서는 2개 컬럼을 차지하도록 설정
+  .videoBlock:nth-child(3),
+  .videoBlock:nth-child(4),
+  .videoBlock:nth-child(5) {
+    grid-column: span 2;
+  }
+}
