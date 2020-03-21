@@ -3,11 +3,13 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import passport from "passport";
 import { localsMiddleware } from "./middlewares";
 import globalRouter from "./routers/globalRouter";
 import videoRouter from "./routers/videoRouter";
 import userRouter from "./routers/userRouter";
 import routes from "./routes";
+import "./passport";
 
 const app = express();
 
@@ -22,6 +24,9 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(localsMiddleware);
 // routes, user라는 변수를 사용할 수 있는 이유는 위에서 localsMiddleware를 사용한다고 정의해주었기 때문,
 // 여기 정의 되어 있는 변수를 아래에서 국부적으로 모두 사용할 수 있게 됨.
