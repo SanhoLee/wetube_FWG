@@ -1,21 +1,30 @@
 import routes from "../routes";
+import User from "../models/User";
 
 // 첫번째 argument는 pug파일, 두번째는 로컬변수값을 설정해서 할당할 수 있다. 아래에서는 pageTitle : "Join"
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
 };
 
-export const postJoin = (req, res) => {
+export const postJoin = async (req, res) => {
   const {
     body: { name, email, password, password2 }
   } = req;
 
   if (password !== password2) {
-    //status Code Definition(http page) / 400 : Bad Request
+    // status Code Definition(http page) / 400 : Bad Request
     res.status(400);
     res.render("join", { pageTitle: "Join" });
   } else {
-    // To do : Register User
+    try {
+      const user = await User({
+        name,
+        email
+      });
+      await User.register(user, password);
+    } catch (error) {
+      console.log(error);
+    }
     // To do : Log user In
     res.redirect(routes.home);
   }
