@@ -15,18 +15,13 @@ dotenv.config();
 //   useFindAndModify: false
 // });
 
-
 // dotenv.config() 해놓은 후, .env파일을 만들어 원하는 변수를 저장해놓는다. 반드시 gitignore파일에 추가해놓을것
 // process.env.var_name 으로 var_name으로 접근할 있다.
-mongoose.connect(
-  process.env.MONGO_URL, 
-  {
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useFindAndModify: false
 });
 // useNewUrlParser, useFindAndModify 를 위와 같게 설정하는것은 mongoose에서 이 설정을 이렇게 해야 파싱할 수 있다고함. 그냥 받아들임.
-
-
 
 const db = mongoose.connection;
 
