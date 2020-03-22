@@ -18,6 +18,10 @@ const VIDEO_DETAIL = "/:id";
 const EDIT_VIDEO = "/:id/edit";
 const DELETE_VIDEO = "/:id/delete";
 
+// Github
+const GITHUB = "/auth/github";
+const GITHUB_CALLBACK = "/auth/github/callback";
+
 // Making Object!
 // userDetail, videoDetail, editVideo, deleteVideo의 경우 :id 로 그냥 설정할 경우, 익스프레스는 코드를 이해하지만 html은 코드를 이해하지 못하기 때문에, 함수 형태로 변환해줌!
 const routes = {
@@ -58,7 +62,9 @@ const routes = {
     } else {
       return DELETE_VIDEO;
     }
-  }
+  },
+  gitHub: GITHUB,
+  githubCallback: GITHUB_CALLBACK
 };
 
 export default routes;
