@@ -1,8 +1,12 @@
 import passport from "passport";
 import GithubStrategy from "passport-github";
+import FacebookStrategy from "passport-facebook";
 
 import User from "./models/User";
-import { githubLoginCallback } from "./controllers/userController";
+import {
+  githubLoginCallback,
+  facebookLoginCallback
+} from "./controllers/userController";
 import routes from "./routes";
 
 // strategy는 how to login 의 개념이며, 여기서 username, password로 인증하게 설정,default방식, 이게 passport-local 방식임.
@@ -17,6 +21,17 @@ passport.use(
       callbackURL: `http://localhost:4000${routes.githubCallback}`
     },
     githubLoginCallback
+  )
+);
+
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.FB_ID,
+      clientSecret: process.env.FB_SECRET,
+      callbackURL: `http://localhost:4000${routes.facebookCallback}`
+    },
+    facebookLoginCallback
   )
 );
 
