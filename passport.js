@@ -24,12 +24,15 @@ passport.use(
   )
 );
 
+// localtunnel이 막혀서, ngrok으로 대응 ->> 일단 기존 localhost 서버를 실행시키고, 다른 터미널에서 다시 ngrok을 실행시키면, https url이 임시로 생성됨. 그걸 이용해서 Facebook에 삽입
 passport.use(
   new FacebookStrategy(
     {
       clientID: process.env.FB_ID,
       clientSecret: process.env.FB_SECRET,
-      callbackURL: `http://localhost:4000${routes.facebookCallback}`
+      callbackURL: `https://bf607942.ngrok.io${routes.facebookCallback}`,
+      profileFields: ["id", "displayName", "photos", "email"],
+      scope: ["public_profile", "email"]
     },
     facebookLoginCallback
   )
