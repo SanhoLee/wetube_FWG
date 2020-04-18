@@ -1,3 +1,6 @@
+// 0418, scss 작성내용이 css로 변환이 안돼서 한참 헤맷다. 이 웹팩을 실행시켜줘야 정상적으로 작동한다.
+// 즉, package,json에 설정해둔, "dev:assets"을 실행시켜야 함.
+// npm run dev:assets 으로 해결.
 const path = require("path");
 const autoprefixer = require("autoprefixer");
 const ExtractCSS = require("extract-text-webpack-plugin");

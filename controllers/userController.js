@@ -53,6 +53,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
       // user.githubId정의는 User.js에서 User의 데이터 schema안에 githubId라는 변수를 미리 만들어서 나서 지정가능함.
       // facebookId도 같은 의미로, email로 User를 검색해서 각각 Id를 할당해 정의할 수 있음.
       user.githubId = id;
+      user.avatarUrl = avatarUrl;
       user.save();
       return cb(null, user);
     }
@@ -122,7 +123,7 @@ export const userDetail = async (req, res) => {
   }
 };
 
-export const editProfile = (req, res) =>
+export const getEditProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "Edit Profile" });
 export const changePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "Change Password" });
