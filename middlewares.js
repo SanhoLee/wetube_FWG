@@ -5,6 +5,7 @@ import routes from "./routes";
 // 아래의 경로로 비디오를 저장해준다. destination.
 // dest의 경로를 /uploads처럼 /를 앞에 붙여주면, 루트 디렉토리로 인식, 없으면 현재 프로젝트 폴더로 인식.
 const multerVideo = multer({ dest: "uploads/videos/" });
+const multerAvatar = multer({ dest: "uploads/avatars/" });
 
 // locals를 이용해서, pug로 정의한 템플릿에 변수로 할당할 수 있게 설정함.
 // res.locals.(variable name) 요렇게 각각 템플릿에서 local하게 사용할 수 있는 변수를 지정해줌.
@@ -36,3 +37,5 @@ export const onlyPrivate = (req, res, next) => {
 export const uploadVideo = multerVideo.single("videoFile");
 // videoFile이란 이름은, pug상의 file input의 name 어트리뷰트 값을 가져온것 뿐.
 // single옵션은 하나의 파일에 대해서 변환하는 것을 얘기함.
+
+export const uploadAvatar = multerAvatar.single("avatar");

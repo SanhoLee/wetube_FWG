@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
   githubId: Number
 });
 
-// 플러그인 적용!
+// 플러그인 적용! email을 필드로 사용한다.
 UserSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 
 const model = mongoose.model("User", UserSchema);
