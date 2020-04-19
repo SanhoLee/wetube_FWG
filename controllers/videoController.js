@@ -49,8 +49,11 @@ export const postUpload = async (req, res) => {
     // 위에 있는 path를 가지고 와서 아래 path에 할당해줌
     fileUrl: path,
     title,
-    description
+    description,
+    creator: req.user.id
   });
+  req.user.videos.push(newVideo.id);
+  req.user.save();
   res.redirect(routes.videoDetail(newVideo.id));
 };
 
@@ -59,8 +62,11 @@ export const videoDetail = async (req, res) => {
     params: { id }
   } = req;
   try {
-    const video = await Video.findById(id);
-    console.log(video.fileUrl);
+    // populate는 객체를 가져와주는 함수? creator.id를 찾으면, 암호화된 정보만 주는데,
+    // populate를 사용하면, 구체적인 정보, name, email 등등 가져올 수 있다.
+    // 가져올 수 있는 데이터는, type=ObjectId 형태일 것
+    const video = await Video.findById(id).populate("creator");
+    console.log(video);
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
     res.redirect(routes.home);
