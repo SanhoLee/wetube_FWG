@@ -5,9 +5,10 @@ block potato
         .video__player
             video(src=`/${video.fileUrl}` controls=true)
         .video__info
-            if video.creator.id === loggedUser.id
-                a(href=routes.editVideo(video.id)) 
-                    button Edit Video
+            if loggedUser !== null
+                if video.creator.id === loggedUser.id
+                    a(href=routes.editVideo(video.id)) 
+                        button Edit Video
             h4.video__title=video.title
             p.video__description=video.description
             if video.views===1
