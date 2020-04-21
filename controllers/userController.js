@@ -20,9 +20,12 @@ export const postJoin = async (req, res, next) => {
     try {
       const user = await User({
         name,
-        email
+        email,
+        avatarUrl:
+          "https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295429_960_720.png"
       });
       await User.register(user, password);
+      console.log("✅  User registered :", user.name);
       next();
     } catch (error) {
       console.log(error);
