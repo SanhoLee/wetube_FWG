@@ -66,7 +66,6 @@ export const videoDetail = async (req, res) => {
     // populate를 사용하면, 구체적인 정보, name, email 등등 가져올 수 있다.
     // 가져올 수 있는 데이터는, type=ObjectId 형태일 것
     const video = await Video.findById(id).populate("creator");
-    console.log(video);
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
     res.redirect(routes.home);
@@ -82,8 +81,15 @@ export const getEditVideo = async (req, res) => {
     // id로 먼저 편집 할 비디오를 찾고,
     const video = await Video.findById(id);
     // 편집 비디오 페이지 렌더링!
-    res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+    // console.log(typeof video.creator); object
+    // console.log(typeof req.user.id); string
+    if (String(video.creator) !== req.user.id) {
+      throw Error();
+    } else {
+      res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+    }
   } catch (error) {
+    console.log(error);
     res.redirect(routes.home);
   }
 };
@@ -109,8 +115,14 @@ export const deleteVideo = async (req, res) => {
     params: { id }
   } = req;
   try {
-    console.log(id);
-    await Video.findOneAndRemove({ _id: id });
-  } catch (error) {}
-  res.redirect(routes.home);
+    const video = await Video.findById(id);
+    // 편집 비디오 페이지 렌더링!
+    if (String(video.creator) !== req.user.id) {
+      throw Error();
+    } else {
+      await Video.findOneAndRemove({ _id: id });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
