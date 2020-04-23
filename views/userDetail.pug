@@ -7,13 +7,13 @@ block potato
         .user-profile__header
             img.u-avatar(src=user.avatarUrl.startsWith("https") ? user.avatarUrl : `/${user.avatarUrl}`)
             h4.profile__username=user.name
-        if loggedUser !== null
-            if user.id === loggedUser.id
-                .user-profile__btns
-                    a(href=`users${routes.editProfile}`)
-                        button ✏️ Edit Profile
-                    a(href=`users${routes.changePassword}`)
-                        button 🔓 Change Password
+            if loggedUser !== null
+                if user.id === loggedUser.id
+                    .user-profile__btns
+                        a(href=`users${routes.editProfile}`)
+                            button ✏️ Edit Profile
+                        a(href=`/users${routes.changePassword}`)
+                            button 🔓 Change Password
             .home-videos
                 each item in user.videos
                     +videoBlock({
