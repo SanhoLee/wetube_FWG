@@ -6,6 +6,6 @@ const apiRouter = express.Router();
 
 // not rendering, just communicate with API Server and Update View Info.
 
-apiRouter.get(routes.registerView, postRegisterView);
+apiRouter.post(routes.registerView, postRegisterView);
 
 export default apiRouter;

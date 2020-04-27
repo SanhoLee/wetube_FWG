@@ -7,6 +7,16 @@ const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const volumeRange = document.getElementById("jsVolume");
 
+// Function for API.
+// In order to sending Video Id information to browser, information for javascript is needed.
+// It is activated when Video is finished.
+const registerView = () => {
+  const viewId = window.location.href.split("/videos/")[1];
+  fetch(`/api/${viewId}/view`, {
+    method: "POST"
+  });
+};
+
 function handlePlayClick() {
   if (videoPlayer.paused) {
     videoPlayer.play();
@@ -88,6 +98,7 @@ function setTotaltime() {
 }
 
 function handleEnded() {
+  registerView();
   videoPlayer.currentTime = 0;
   playBtn.innerHTML = '<i class="fas fa-play"></i>';
 }
