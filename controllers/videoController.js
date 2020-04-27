@@ -1,5 +1,6 @@
 import routes from "../routes";
 import Video from "../models/Video";
+import Comment from "../models/Comment";
 
 // await 함수는 실행되는 대상이 끝날때까지 기다려 준다. 단. async함수 내에서 실행되어야 한다.
 // Javascript는 기본적으로 하나의 명령어가 끝날때까지 기다려주지 않기 때문에 await로 비디오를 찾을 때까지 실행시킴.
@@ -65,9 +66,12 @@ export const videoDetail = async (req, res) => {
     // populate는 객체를 가져와주는 함수? creator.id를 찾으면, 암호화된 정보만 주는데,
     // populate를 사용하면, 구체적인 정보, name, email 등등 가져올 수 있다.
     // 가져올 수 있는 데이터는, type=ObjectId 형태일 것
-    const video = await Video.findById(id).populate("creator");
+    const video = await Video.findById(id)
+      .populate("creator")
+      .populate("comments");
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
+    console.log(error);
     res.redirect(routes.home);
   }
   // 비디오 아이디에 존재하지 않는 정보가 들어오면 홈으로 리다이렉팅
@@ -141,6 +145,28 @@ export const postRegisterView = async (req, res) => {
   } catch (error) {
     res.status(400);
     console.log(error);
+  } finally {
+    res.end();
+  }
+};
+
+// Add Comments
+export const postAddComment = async (req, res) => {
+  const {
+    params: { id },
+    body: { comment },
+    user
+  } = req;
+  try {
+    const video = await Video.findById(id);
+    const newComment = await Comment.create({
+      text: comment,
+      creator: user.id
+    });
+    video.comments.push(newComment.id);
+    video.save();
+  } catch (error) {
+    res.status(400);
   } finally {
     res.end();
   }
