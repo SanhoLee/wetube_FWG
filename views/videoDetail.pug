@@ -28,6 +28,7 @@ block potato
                 input(type=text, placeholder="Add a comment.")
             ul.video__comments-list
                 each comment in video.comments
-                    span comment.text
+                    li
+                        span=comment.text
 
 
