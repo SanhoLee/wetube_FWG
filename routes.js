@@ -32,6 +32,7 @@ const FB_CALLBACK = "/auth/facebook/callback";
 const API = "/api";
 const REGISTER_VIEW = "/:id/view";
 const ADD_COMMENT = "/:id/comment";
+const DELETE_COMMENT = "/:id/comment/delete";
 
 // Making Object!
 // userDetail, videoDetail, editVideo, deleteVideo의 경우 :id 로 그냥 설정할 경우, 익스프레스는 코드를 이해하지만 html은 코드를 이해하지 못하기 때문에, 함수 형태로 변환해줌!
@@ -77,7 +78,8 @@ const routes = {
   facebookCallback: FB_CALLBACK,
   api: API,
   registerView: REGISTER_VIEW,
-  addComment: ADD_COMMENT
+  addComment: ADD_COMMENT,
+  deleteComment: DELETE_COMMENT
 };
 
 export default routes;

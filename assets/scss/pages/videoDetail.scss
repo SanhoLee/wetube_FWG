@@ -56,6 +56,14 @@
         &:not(:last-child) {
           margin-bottom: 15px;
         }
+        span {
+          &:not(:first-child) {
+            margin-left: 10px;
+            color: yellowgreen;
+            font-size: 20px;
+            cursor: pointer;
+          }
+        }
       }
     }
   }

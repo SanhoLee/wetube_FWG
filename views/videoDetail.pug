@@ -34,3 +34,8 @@ block potato
                 each comment in video.comments.reverse()
                     li
                         span=comment.text
+                        if loggedUser === null
+                            return
+                        else if comment.creator == loggedUser.id
+                            span
+                                .jsDeleteComment.i.fas.fa-backspace
