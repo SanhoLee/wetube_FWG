@@ -44,11 +44,11 @@ export const getUpload = (req, res) =>
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { path }
+    file: { location }
   } = req;
   const newVideo = await Video.create({
     // 위에 있는 path를 가지고 와서 아래 path에 할당해줌
-    fileUrl: path,
+    fileUrl: location,
     title,
     description,
     creator: req.user.id
