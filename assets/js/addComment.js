@@ -3,10 +3,20 @@ import axios from "axios";
 const addCommentForm = document.getElementById("jsAddComment");
 const commentList = document.getElementById("jsCommentList");
 const commentNumber = document.getElementById("jsCommentNumber");
+const checkScomment = document.getElementById("jsCommentNumberIdx");
+
+const updateCommentText = updatedNumber => {
+  if (parseInt(updatedNumber, 10) === 1) {
+    checkScomment.innerHTML = '<span id="jsCommentNumber">1</span> comment';
+  } else {
+    checkScomment.innerHTML = `<span id="jsCommentNumber">${updatedNumber}</span> comments`;
+  }
+};
 
 const increaseNumber = () => {
   commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) + 1;
   // commentNumber.innerHTML의 type이 String이기 때문에 int 형태로 파싱해줌.
+  updateCommentText(commentNumber.innerHTML);
 };
 
 const addDeleteBtn = () => {
@@ -14,8 +24,6 @@ const addDeleteBtn = () => {
   const div = document.createElement("div");
   div.classList.add("jsDeleteComment", "i", "fas", "fa-backspace");
   span.appendChild(div);
-
-  console.log(span);
   return span;
 };
 
@@ -24,9 +32,9 @@ const addComment = comment => {
   const span = document.createElement("span");
   span.innerHTML = comment;
   li.appendChild(span);
-  const second_span = addDeleteBtn();
+  const secondSpan = addDeleteBtn();
 
-  li.appendChild(second_span);
+  li.appendChild(secondSpan);
   commentList.prepend(li);
   // 이렇게만 두면, session refresh했을 때, 최근에 작성한 comment가 가장 밑으로 가게 된다.
   // 그래서, videodetail에서 video.comment.reverse() 메소드를 사용해서 개선, array의 메소드 reverse()를 사용해서 뒤에서부터 loop element를 뿌려주도록 함.

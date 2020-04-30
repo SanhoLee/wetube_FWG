@@ -3,10 +3,20 @@ import axios from "axios";
 const deleteComments = document.getElementsByClassName("jsDeleteComment");
 const commentNumber = document.getElementById("jsCommentNumber");
 const commentList = document.getElementById("jsCommentList");
+const checkScomment = document.getElementById("jsCommentNumberIdx");
+
+const updateCommentText = updatedNumber => {
+  if (parseInt(updatedNumber, 10) === 1) {
+    checkScomment.innerHTML = '<span id="jsCommentNumber">1</span> comment';
+  } else {
+    checkScomment.innerHTML = `<span id="jsCommentNumber">${updatedNumber}</span> comments`;
+  }
+};
 
 const decreseCommnetNum = () => {
   commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) - 1;
   // commentNumber.innerHTML의 type이 String이기 때문에 int 형태로 파싱해줌.
+  updateCommentText(commentNumber.innerHTML);
 };
 
 const deleteComment = async commentId => {
