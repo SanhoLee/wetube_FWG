@@ -9,11 +9,24 @@ const increaseNumber = () => {
   // commentNumber.innerHTML의 type이 String이기 때문에 int 형태로 파싱해줌.
 };
 
+const addDeleteBtn = () => {
+  const span = document.createElement("span");
+  const div = document.createElement("div");
+  div.classList.add("jsDeleteComment", "i", "fas", "fa-backspace");
+  span.appendChild(div);
+
+  console.log(span);
+  return span;
+};
+
 const addComment = comment => {
   const li = document.createElement("li");
   const span = document.createElement("span");
   span.innerHTML = comment;
   li.appendChild(span);
+  const second_span = addDeleteBtn();
+
+  li.appendChild(second_span);
   commentList.prepend(li);
   // 이렇게만 두면, session refresh했을 때, 최근에 작성한 comment가 가장 밑으로 가게 된다.
   // 그래서, videodetail에서 video.comment.reverse() 메소드를 사용해서 개선, array의 메소드 reverse()를 사용해서 뒤에서부터 loop element를 뿌려주도록 함.

@@ -175,15 +175,16 @@ export const postAddComment = async (req, res) => {
 // Delete Comments
 export const postDeleteComment = async (req, res) => {
   const {
-    params: { id },
-    body: { comment },
-    user
+    body: { commentId }
   } = req;
   try {
-    const video = await Video.findById(id).populate("comments");
-    const updatedComment = await Comment.remove({ _id: comment.id });
-    console.log(updatedComment);
+    const updatedComment = await Comment.findByIdAndRemove({
+      _id: commentId
+    });
+    updatedComment.save();
   } catch (error) {
     res.status(400);
+  } finally {
+    res.end();
   }
 };

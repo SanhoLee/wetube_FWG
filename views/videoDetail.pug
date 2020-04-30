@@ -28,8 +28,9 @@ block potato
                 span.video__comment-number
                     span#jsCommentNumber=video.comments.length
                     |  comments
-            form.add__comment#jsAddComment
-                input(type=text, placeholder="Add a comment.")
+            if loggedUser && loggedUser.id
+                form.add__comment#jsAddComment
+                    input(type=text, placeholder="Add a comment.")
             ul.video__comments-list#jsCommentList
                 each comment in video.comments.reverse()
                     li
@@ -37,5 +38,4 @@ block potato
                         if loggedUser === null
                             return
                         else if comment.creator == loggedUser.id
-                            span
-                                .jsDeleteComment.i.fas.fa-backspace
+                            span(id=`${comment.id}`).jsDeleteComment.i.fas.fa-backspace
