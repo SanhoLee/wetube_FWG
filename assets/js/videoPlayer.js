@@ -1,3 +1,5 @@
+import getBlobDuration from "get-blob-duration";
+
 const videoContainer = document.getElementById("jsVideoPlayer");
 const videoPlayer = document.querySelector("#jsVideoPlayer video");
 const playBtn = document.getElementById("jsPlayButton");
@@ -91,8 +93,17 @@ function getCurrentTime() {
   currentTime.innerHTML = formatData(Math.floor(videoPlayer.currentTime));
 }
 
-function setTotaltime() {
-  const totalTimeString = formatData(videoPlayer.duration);
+// video duration bug fixed.
+// video file의 소스를 가져온 후, 데이터 형태인 blob() 해준다.
+// 그 후 생성된 blob을 get-blob-duration 해서 duration 정보를 가져온다.
+// 단, 현재상태에서는, 로컬저장소? 에 저장하는것이 아니라, aws s3로 스토리지를 변경했기 때문에, 소스도 이곳에서 가져온다.
+// 때문에, aws s3의 저장 버킷의 permission -> CORS(cross origin Resource Sharing) configuration 이 필요하다.
+//  documentation example을 보고 적당히 설정했다. 단, Method : Get!!
+async function setTotaltime() {
+  const blob = await fetch(videoPlayer.src).then(reponse => reponse.blob());
+  const duration = await getBlobDuration(blob);
+  const totalTimeString = formatData(duration);
+
   totalTime.innerHTML = totalTimeString;
   setInterval(getCurrentTime, 1000);
 }
