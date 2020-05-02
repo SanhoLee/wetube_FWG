@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import passport from "passport";
 import mongoose from "mongoose";
 import session from "express-session";
+import path from "path";
 import MongoStore from "connect-mongo";
 import { localsMiddleware } from "./middlewares";
 import globalRouter from "./routers/globalRouter";
@@ -21,11 +22,15 @@ const CookieStore = MongoStore(session);
 
 app.use(helmet());
 app.set("view engine", "pug");
+
+// 아래 views의 디렉토리 설정방법은 express js의 view engine document에 설명되어있음.
+// path.join(arg1,arg2,...)  -> arg들의 패스를 이어서 붙여준다.
+app.set("views", path.join(__dirname, "views"));
+
 // express.static() 디렉토리에 파일을 보내주는 미들웨어임.
 // 컨트롤러나, 어떤 view로 렌더링 작업도 하지않고, file만 찾으러 갈거임.
-// static(directory name)이므로, 여기서는 uploads라는 디렉토리의 파일을 찾으러 감.파일의 url?
-app.use("/uploads", express.static("uploads"));
-app.use("/static", express.static("static"));
+// static(directory name)이므로, 여기서는 src/static(절대경로) 라는 디렉토리의 파일을 찾으러 감.
+app.use("/static", express.static(path.join(__dirname, "static")));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

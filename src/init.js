@@ -1,3 +1,5 @@
+// 런타임 관려 babel라이브러리, async awiat를 사용하는것과 관련이 있음.
+import "@babel/polyfill";
 import "./db";
 import dotenv from "dotenv";
 import app from "./app";

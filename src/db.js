@@ -4,6 +4,7 @@
 
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+
 dotenv.config();
 
 // dotenv는 내가 공개하고싶지 않은정보를 위해 이용한다.
