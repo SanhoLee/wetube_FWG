@@ -18,6 +18,7 @@ dotenv.config();
 
 // dotenv.config() 해놓은 후, .env파일을 만들어 원하는 변수를 저장해놓는다. 반드시 gitignore파일에 추가해놓을것
 // process.env.var_name 으로 var_name으로 접근할 있다.
+// ref from .. https://github.com/xavdid/heroku-config
 mongoose.connect(
   process.env.PRODUCTION ? process.env.MONGO_URL_PROD : process.env.MONGO_URL,
   {
