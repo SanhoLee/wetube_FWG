@@ -2,6 +2,10 @@
 
 Cloning Youtube with Vanilla and NodeJS
 
+# Run App Here 👇
+
+https://morning-bastion-42680.herokuapp.com/
+
 ## Pages:
 
 - [x] Home
@@ -13,5 +17,5 @@ Cloning Youtube with Vanilla and NodeJS
 - [x] Change Password
 - [x] Upload
 - [x] Video Detail
-- [ ] Video Player
+- [x] Video Player
 - [x] Edit Video
