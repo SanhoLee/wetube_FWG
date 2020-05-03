@@ -34,14 +34,22 @@ globalRouter.get(routes.search, search);
 globalRouter.get(routes.gitHub, githubLogin);
 globalRouter.get(
   routes.githubCallback,
-  passport.authenticate("github", { failureRedirect: "/login" }),
+  passport.authenticate("github", {
+    failureRedirect: "/login",
+    successFlash: "Welcome! (@Github)",
+    failureFlash: "Can't Log In. Check email and/or Password"
+  }),
   postGithubLogin
 );
 
 globalRouter.get(routes.facebook, facebookLogin);
 globalRouter.get(
   routes.facebookCallback,
-  passport.authenticate("facebook", { failureRedirect: "/login" }),
+  passport.authenticate("facebook", {
+    failureRedirect: "/login",
+    successFlash: "Welcome!",
+    failureFlash: "Can't Log In. Check email and/or Password"
+  }),
   postFacebookLogin
 );
 

@@ -44,15 +44,10 @@ export const getLogin = (req, res) => {
 
 export const postLogin = passport.authenticate("local", {
   failureRedirect: routes.login,
-  successRedirect: routes.home,
-  successFlash: "Welcome!",
-  failureFlash: "Can't Log In. Check email and/or Password"
+  successRedirect: routes.home
 });
 
-export const githubLogin = passport.authenticate("github", {
-  successFlash: "Welcome!",
-  failureFlash: "Can't Log In. Check email and/or Password"
-});
+export const githubLogin = passport.authenticate("github");
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
