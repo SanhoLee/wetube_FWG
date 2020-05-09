@@ -44,7 +44,9 @@ export const getLogin = (req, res) => {
 
 export const postLogin = passport.authenticate("local", {
   failureRedirect: routes.login,
-  successRedirect: routes.home
+  successRedirect: routes.home,
+  successFlash: "Welcome!",
+  failureFlash: "Can't Log In. Check email and/or Password"
 });
 
 export const githubLogin = passport.authenticate("github");
