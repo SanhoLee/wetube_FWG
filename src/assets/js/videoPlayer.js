@@ -8,6 +8,7 @@ const fullScrnBtn = document.getElementById("jsFullScreen");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const volumeRange = document.getElementById("jsVolume");
+const durationPos = document.getElementById("jsDurationPos");
 
 // Function for API.
 // In order to sending Video Id information to browser, information for javascript is needed.
@@ -15,7 +16,7 @@ const volumeRange = document.getElementById("jsVolume");
 const registerView = () => {
   const viewId = window.location.href.split("/videos/")[1];
   fetch(`/api/${viewId}/view`, {
-    method: "POST"
+    method: "POST",
   });
 };
 
@@ -70,7 +71,7 @@ function goFullScreen() {
   fullScrnBtn.addEventListener("click", exitFullScreen);
 }
 
-const formatData = seconds => {
+const formatData = (seconds) => {
   const secondsNumber = parseInt(seconds, 10);
   let hours = Math.floor(secondsNumber / 3600);
   let minutes = Math.floor((secondsNumber % 3600) / 60);
@@ -89,6 +90,10 @@ const formatData = seconds => {
   return `${hours}:${minutes}:${totalSeconds}`;
 };
 
+function setDurationTime() {
+  durationPos.value = videoPlayer.currentTime;
+}
+
 function getCurrentTime() {
   currentTime.innerHTML = formatData(Math.floor(videoPlayer.currentTime));
 }
@@ -100,12 +105,18 @@ function getCurrentTime() {
 // 때문에, aws s3의 저장 버킷의 permission -> CORS(cross origin Resource Sharing) configuration 이 필요하다.
 //  documentation example을 보고 적당히 설정했다. 단, Method : Get!!
 async function setTotaltime() {
-  const blob = await fetch(videoPlayer.src).then(reponse => reponse.blob());
-  const duration = await getBlobDuration(blob);
-  const totalTimeString = formatData(duration);
-
-  totalTime.innerHTML = totalTimeString;
-  setInterval(getCurrentTime, 1000);
+  try {
+    const blob = await fetch(videoPlayer.src).then((reponse) => reponse.blob());
+    const duration = await getBlobDuration(blob);
+    const totalTimeString = formatData(duration);
+    durationPos.max = Math.floor(duration);
+    totalTime.innerHTML = totalTimeString;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setInterval(getCurrentTime, 1000);
+    setInterval(setDurationTime, 10);
+  }
 }
 
 function handleEnded() {
@@ -116,7 +127,7 @@ function handleEnded() {
 
 function handleDrag(event) {
   const {
-    target: { value }
+    target: { value },
   } = event;
   videoPlayer.volume = value;
   if (value >= 0.6) {
@@ -128,13 +139,22 @@ function handleDrag(event) {
   }
 }
 
+function handleDurationTime(event) {
+  const {
+    target: { value },
+  } = event;
+  videoPlayer.currentTime = value;
+}
+
 function init() {
   playBtn.addEventListener("click", handlePlayClick);
+  videoPlayer.addEventListener("click", handlePlayClick);
   volumeBtn.addEventListener("click", handleVolmeClick);
   fullScrnBtn.addEventListener("click", goFullScreen);
   videoPlayer.addEventListener("loadedmetadata", setTotaltime);
   videoPlayer.addEventListener("ended", handleEnded);
   volumeRange.addEventListener("input", handleDrag);
+  durationPos.addEventListener("input", handleDurationTime);
 }
 
 if (videoContainer) {
